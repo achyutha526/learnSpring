@@ -1,4 +1,4 @@
-#Spring
+# Spring
 - Dependency Injection framework
 - The IoC container provides and manages the life cycle of the objects.
 - @Component - denotes that Spring needs to create and manage the life cycle of the Bean (class)
