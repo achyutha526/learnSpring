@@ -4,6 +4,7 @@
 - @Component - denotes that Spring needs to create and manage the life cycle of the Bean (class)
 - @Autowired
     - Denotes that the object will be created by Spring and injected. By default spring uses autowire by Type.
+    - No need to provide constructor or setter to autowire the bean. Spring uses default setter injection to Autowire the bean.
     - We can also use combination of both Bean type and name for autowiring in case of conflicts (both beans implementing same interface)
 ```java
 @Component
@@ -53,5 +54,29 @@ public class SpringComponentScanExample {
     public MyBean myBean() {
         return new MyBean();
     }
+}
+```
+- Bean scope
+    - singleton - one instance per Spring Context - by default spring creates beans with this scope.
+    - prototype - new bean created when requested
+    - request - one bean per HTTP request
+    - session - one bean per HTTP session
+
+If we want to use combination of Singleton and Prototype beans, we need to create proxy for Prototype bean.
+Example: here spring injects new instance of DBConnection when the request is made to context.
+```java
+@Component
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+public class SalesDaoImpl {
+    
+    @Autowired
+    private DBConnection connection;
+}
+```
+```java
+@Component
+@Scope(value=ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class DBConnection {
+
 }
 ```
