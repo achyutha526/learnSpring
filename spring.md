@@ -16,7 +16,7 @@ public class SpringComponentScanExample {
 ```
 ```java
 @Component
-public class SalesPersonImpl {
+public class SalesPersonImpl implements IEmployeeDao{
     
 }
 ```
@@ -36,7 +36,7 @@ public class SpringComponentScanExample {
 ```java
 @Component
 @Qualifier("sales")
-public class SalesDaoImpl {
+public class SalesDaoImpl implements IEmployeeDao{
     
 }
 ```
@@ -62,8 +62,7 @@ public class SpringComponentScanExample {
     - request - one bean per HTTP request
     - session - one bean per HTTP session
 
-If we want to use combination of Singleton and Prototype beans, we need to create proxy for Prototype bean.
-Example: here spring injects new instance of DBConnection when the request is made to context.
+If we want to use combination of Singleton and Prototype beans, we need to create proxy for Prototype bean. In this example spring injects new instance of DBConnection when the request is made to context.
 ```java
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
@@ -78,5 +77,47 @@ public class SalesDaoImpl {
 @Scope(value=ConfigurableBeanFactory.SCOPE_PROTOTYPE, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class DBConnection {
 
+}
+```
+- @PostConstruct - As soon as bean is created and intialized with dependencies, spring invokes the method marked with @PostConstruct.
+- @PreDestory - Before removing the bean instance from the container, spring invokes the method marked with @PreDestory.
+- BeanFactory and ApplicationContext are 2 implementations of IOC container. BeanFactory provided core functionality of managing beans. Application Context provided features like Spring AOP, i18n, etc.. and along with features of BeanFactory. For memory critical apps (like IOT apps), it is recommended to use Bean factory.
+
+- Using spring we can read properties from a file. Here is the example
+```java
+@Configuration
+@PropertySource("classpath:app.properties")
+public class SpringComponentScanExample {
+ 
+    @Bean
+    public MyBean myBean() {
+        return new MyBean();
+    }
+}
+```
+```java
+@Component
+public class DBConnection {
+
+    @Value("${app.dbUrl}")
+    private String Url;
+
+}
+```
+- We can create Beans using the Java based configuration.
+```java
+@Configuration
+public class AppConfiguration {
+ 
+    @Bean
+    public MyBean myBean() {
+        return new MyBean();
+    }
+}
+```
+```java
+public static void main(String[] args) {
+   ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfiguration.class);   
+   MyBean mybean = ctx.getBean(MyBean.class);
 }
 ```
