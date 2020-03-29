@@ -79,8 +79,8 @@ public class DBConnection {
 
 }
 ```
-- @PostConstruct - As soon as bean is created and intialized with dependencies, spring invokes the method marked with @PostConstruct.
-- @PreDestory - Before removing the bean instance from the container, spring invokes the method marked with @PreDestory.
+- @PostConstruct - As soon as bean is created and intialized with dependencies, spring invokes the method marked with this annotation.
+- @PreDestory - Before removing the bean instance from the container, spring invokes the method marked with this annotation.
 - BeanFactory and ApplicationContext are 2 implementations of IOC container. BeanFactory provided core functionality of managing beans. Application Context provided features like Spring AOP, i18n, etc.. and along with features of BeanFactory. For memory critical apps (like IOT apps), it is recommended to use Bean factory.
 
 - Using spring we can read properties from a file. Here is the example
