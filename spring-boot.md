@@ -13,10 +13,10 @@ public class PropsUsingJavaConf {
 - We can provide different value at run time using --spring.config.location=classpath:/diff-app.properties
 - We can provide environment specific properties file using application-DEV.properties and we can invoked appropriate file using spring profile -Dspring.profiles.active=DEV
 - We can provide Hierarchical properties using @ConfigurationProperties annotation.
-    
+```
     server.hostname=localhost
     server.port=9090
-
+```
 ```java
 @ConfigurationProperties("server")
 public class Database {
