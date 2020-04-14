@@ -19,7 +19,7 @@ public class PropsUsingJavaConf {
 ```
 ```java
 @ConfigurationProperties("server")
-public class Database {
+public class Application {
     String hostname;
     String port;
 
