@@ -47,3 +47,12 @@ private Environment env;
 //in the code
 env.getProperty("serverName");
 ```
+- In order to get full control on the configuration, We need to create PropertySourcesPlaceholderConfigurer Bean and register it manually.
+```java
+@Bean
+    public PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
+        propertySourcesPlaceholderConfigurer.setLocations(new ClassPathResource("app.properties"));
+        return propertySourcesPlaceholderConfigurer;
+    }
+```
